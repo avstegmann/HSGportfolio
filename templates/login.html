@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+        <!--Set background picture-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div class="body">
+        <style>
+            .body{
+                background-image: url("https://cdn-images-1.medium.com/max/2000/1*yczfwzWMlzEANed1SMdtCQ.jpeg") !important;
+                background-position: center center !important;
+        	    background-repeat:  no-repeat !important;
+    			background-attachment: fixed !important;
+    			background-size:  cover !important;
+    			background-color: #999 !important;
+    			height: 600px !important;
+    			width: 100% !important;
+                }
+        </style>
+ <!--Ask for username and password; ensure one empty line at the top-->
+        <form action="/login" method="post">
+
+            <br>
+
+            <div class="form-group" align="right">
+                <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" size="20" style="margin-right:25px"/>
+            </div>
+            <div class="form-group" align="right">
+                <input class="form-control" name="password" placeholder="Password" type="password" size="20" style="margin-right:25px"/>
+            </div>
+            <div style="margin-right:25px">
+                <button class="btn btn-outline-light" style="float: right;width:195px" type="submit" >Log In</button>
+            </div>
+        </form>
+
+    </div>
+{% endblock %}

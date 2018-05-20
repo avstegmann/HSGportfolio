@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+ <form action="/" method="get">
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Shares</th>
+            <th>Buying price</th>
+            <th>Exchange rate</th>
+            <th>Expenses</th>
+            <th>Current price</th>
+            <th>Current TOTAL</th>
+            <th><span style="color:#088A29">Value Differential</span></th>
+            <th><span style="color:#088A29">% Change</span></th>
+        </tr>
+        {% for i in range(0, length) %}
+        <tr>
+            <td>{{ rows[i][0]["name"] }}</td>
+            <td>{{ rows[i][0]["shares"] }}</td>
+            <td>{{ rows[i][0]["buyingprice"] }} {{ rows[i][0]["currency"] }}</td>
+            <td>{{'%0.3f' | format(rows[i][0]["exchange_rate"]|float)}}</td>
+            <td>{{rows[i][0]["expenses"]}} {{ rows[i][0]["currency"] }}</td>
+            <td>{{rows[i][0]["cprice"]}} {{ rows[i][0]["currency"] }}</td>
+            <td>{{rows[i][0]["cvalue"]}} {{ rows[i][0]["currency"] }}</td>
+            <td>{{rows[i][0]["net"]}} {{ rows[i][0]["currency"] }}</td>
+            {% if rows[i][0]["net_perc"] > 0 %}
+                <td><span style="color:#088A29">{{rows[i][0]["net_perc"]}}%</span> <img src="https://image.flaticon.com/icons/svg/138/138349.svg" height=20 width=20></td>
+            {% elif rows[i][0]["net_perc"] == 0  %}
+                <td><span style="color:#000000">{{rows[i][0]["net_perc"]}}%</span> <img src="https://image.flaticon.com/icons/svg/138/138255.svg" height=20 width=20></td>
+            {% else %}
+                <td><span style="color:#FF0000">{{rows[i][0]["net_perc"]}}%</span> <img src="https://image.flaticon.com/icons/svg/138/138350.svg" height=20 width=20></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b><span style="color:#000000">TOTAL EXPENSES</span></b></td>
+            <td>{{ '%0.2f' | format(user.expenses|float) }} CHF</td>
+            <td><b><span style="color:#000000">CURRENT TOTAL VALUE</span></b></td>
+            <td>{{ rows["A"][0]["ctotal_value"]}} CHF</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b><span style="color:#000000">TOTAL CASH</span></b></td>
+            <td><b>{{'%0.2f' | format(user.cash|float)}} CHF</b></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b><span style="color:#088A29">PORTFOLIO VALUE</span></b></td>
+            <td><b>{{'%0.2f' | format(user.current|float)}} CHF</b></td>
+            <td></td>
+        </tr>
+    </table>
+
+{% endblock %}

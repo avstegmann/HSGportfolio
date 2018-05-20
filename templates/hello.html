@@ -1,0 +1,39 @@
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+ <form action="/" method="get">
+    <table class="table table-striped">
+        <tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Shares</th>
+            <th>Price</th>
+            <th>TOTAL</th>
+        </tr>
+        {% for stock in stocks %}
+        <tr>
+            <td>{{stock.symbol}}</td>
+            <td>{{stock.name}}</td>
+            <td>{{stock.shares}}</td>
+            <td>{{'%0.2f' | format(stock.price|float)}}</td>
+            <td>{{'%0.2f' | format(stock.total|float)}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td>CASH</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{cash}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b>{{total}}</b></td>
+        </tr>
+    </table>
+{% endblock %}

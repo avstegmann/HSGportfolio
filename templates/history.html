@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+ <form action="/history" method="get">
+    <table class="table table-striped">
+        <tr>
+            <th>Transacted</th>
+            <th>Name</th>
+            <th>Shares</th>
+            <th>Price</th>
+            <th>Expenses / <br> Earnings</th>
+            <th>Exchange Rate</th>
+        </tr>
+       {% for i in range(0, length) %}
+        <tr>
+            <td>{{ history[i][0]["date"] }}</td>
+            <td>{{ history[i][0]["name"] }}</td>
+            <td>{{ history[i][0]["shares"] }}</td>
+            <td>{{ history[i][0]["buyingprice"] }} {{ history[i][0]["currency"] }}</td>
+            {% if history[i][0]["value"] >= 0 %}
+                <td>{{ history[i][0]["value"]}} {{ history[i][0]["currency"] }}   <img src="https://image.flaticon.com/icons/svg/138/138283.svg" height=20 width=20></td>
+            {% else %}
+                <td>{{ history[i][0]["value"]}} {{ history[i][0]["currency"] }} <img src="https://image.flaticon.com/icons/svg/639/639365.svg" height=20 width=20></td>
+            {% endif %}
+            <td>{{'%0.3f' | format(history[i][0]["exchange_rate"]|float)}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+

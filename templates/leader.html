@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Who is the real Jordan Belfort?!
+{% endblock %}
+
+{% block main %}
+ <form action="/" method="get">
+     <div align="center">
+         <div class="card" style="width: 40rem;">
+              <img class="card-img-top" src="http://www.thecelebritycastle.com/wp-content/uploads/2018/03/Leonardo-DiCaprio-in-The-Wolf-Of-Wall-Street.jpg" alt="Card image cap">
+              <div class="card-body">
+                <h4 class="card-title">Proud to announce, that {{leaders[0][0]}}'s portfolio just nailed it!</h4>
+                <p class="card-text"><i>"There is no nobility in poverty" – Jordan Belford</i>.</p>
+          </div>
+      </div>
+      <br>
+      <br>
+     <table class="table table-striped">
+        <tr>
+            <th>Username</th>
+            <th>Cash</th>
+            <th>Current TOTAL</th>
+        </tr>
+        {% for leader in leaders %}
+        <tr>
+            <td>{{ leader[0]}}</td>
+            <td>{{ leader[1]}}</td>
+            <td>{{ leader[2]}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
