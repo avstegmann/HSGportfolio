@@ -36,7 +36,7 @@ class User:
         self.current = info[5]
 
     def update(self, totalexpenses, totalcurrent):
-        dao.update(self, totalexpenses, totalcurrent)                         # -> Fehlermeldung?
+        dao.update(self, totalexpenses, totalcurrent)
         self.expenses = totalexpenses
         self.current = totalcurrent
 

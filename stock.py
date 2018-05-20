@@ -91,10 +91,3 @@ class Stock:
                 prices_dao.append(new_info[m][0]['price'])
                 symbols_dao.append(new_info[m][0]['symbol'])
             dao.update_stock_prices(prices_dao, symbols_dao)
-
-    @staticmethod
-    def getdate():
-        """
-        Get the refresh date from the first stock in the DB.
-        """
-        return dao.getdate()

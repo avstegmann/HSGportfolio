@@ -1,9 +1,9 @@
 from flask import Flask, flash, redirect, render_template, request, session
+from helpers import apology, login_required
+from controller import Controller
 from flask_session import Session
 from tempfile import mkdtemp
 import re
-from helpers import apology, login_required
-from controller import Controller
 
 controller = Controller()
 
