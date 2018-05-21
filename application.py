@@ -149,7 +149,7 @@ def buy():
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
         symbol = request.form.get("symbol")
-        shares = request.form.get("shares")
+        shares = int(request.form.get("shares"))
         buy_check = controller.buy(symbol, shares)
         if buy_check is not True:
             return apology(buy_check, 400)
