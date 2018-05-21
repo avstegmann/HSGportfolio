@@ -17,14 +17,18 @@ class Api:
             return False
         else:
             info = info.json()
-            # print(json.dumps(info, indent=2))
+            print(json.dumps(info, indent=2))
             output = {}
             for i in range(0, len(info['quoteResponse']['result'])):
                 key = info['quoteResponse']['result'][i]['symbol']
+                try:
+                    name = info['quoteResponse']['result'][i]['longName']
+                except KeyError:
+                    name = info['quoteResponse']['result'][i]['shortName']
                 output[key] = [
                     {
                         'currency': info['quoteResponse']['result'][i]['currency'],
-                        'name': info['quoteResponse']['result'][i]['longName'],
+                        'name': name,
                         'price': info['quoteResponse']['result'][i]['regularMarketPrice']
                     }
                 ]
