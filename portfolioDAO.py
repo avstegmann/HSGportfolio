@@ -31,19 +31,21 @@ class PortfolioDAO:
             sql = "SELECT portfolio.name, portfolio.shares, portfolio.buyingprice, info.currency, " \
                   "portfolio.exchange_rate, portfolio.expenses, portfolio.cprice, portfolio.cvalue " \
                   "FROM " \
-                  "   (SELECT a.name, b.shares, b.buyingprice, a.currencyID, b.exchange_rate, b.expenses, " \
+                  "   ((SELECT a.name, b.shares, b.buyingprice, a.currencyID, b.exchange_rate, b.expenses, " \
                   "    a.price as cprice, (b.shares*a.price) as cvalue, a.symbol " \
                   "    FROM stocks a JOIN portfolio b on a.stockID = b.stocks_stockID " \
                   "    WHERE users_userID=(SELECT userID FROM users WHERE username=%s) " \
                   "    ORDER BY a.name DESC) " \
                   "   AS portfolio " \
-                  "JOIN" \
+                  "  JOIN" \
                   "  (SELECT a.currency, b.symbol" \
                   "   FROM currencies a JOIN stocks b on a.currencyID = b.currencyID)" \
-                  "  AS info " \
-                  "ON portfolio.symbol = info.symbol;"
+                  "   AS info " \
+                  "  ON portfolio.symbol = info.symbol) " \
+                  "ORDER BY portfolio.name ASC"
             db.execute(sql, [user.username])
             info = db.fetchall()
+            print(info)
             return info
         finally:
             pass
