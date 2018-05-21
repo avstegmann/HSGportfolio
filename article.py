@@ -86,10 +86,8 @@ class Article:
                         articles[k] = [self.init_json()]
             return articles
         else:
-            for k in range(0, len(check)):
-                if check is False:
-                    self.title = 'No news available.'
-                else:
+            for k in range(0, 3):
+                try:
                     self.init_exist(
                         check[k][0],
                         check[k][1],
@@ -98,6 +96,9 @@ class Article:
                         check[k][4],
                         check[k][5],
                     )
-                articles[k] = [self.init_json()]
+                except IndexError:
+                    self.init_exist("", 'No news available', "", "", "", "")
+                finally:
+                    articles[k] = [self.init_json()]
             return articles
 
