@@ -30,7 +30,7 @@
                                 <br>
                                 <div class="card-block" align="center">
                                     <h4 class="card-title">{{ articles[i][0]['title'] }}</h4>
-                                {% if articles[i][0]['description'] == None %}
+                                {% if articles[i][0]['description'] == "" %}
                                     <p class="card-text" align="justify" style="height:60px;">Sorry, there are currently no news available on our API. But have a look at Bloomberg.</p>
                                 {% else %}
                                     <p class="card-text" align="justify" style="height:60px;">{{ articles[i][0]['description'] }}...</p>
