@@ -45,7 +45,6 @@ class PortfolioDAO:
                   "ORDER BY portfolio.name ASC"
             db.execute(sql, [user.username])
             info = db.fetchall()
-            print(info)
             return info
         finally:
             pass
