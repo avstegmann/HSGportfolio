@@ -54,6 +54,7 @@ class ArticleDAO:
                 sql = "SELECT b.source, a.title, a.description, a.link, a.image, a.date " \
                       "FROM articles a JOIN sources b ON a.sourceID = b.sourceID " \
                       "WHERE a.stockID=%s " \
+                      "ORDER BY a.date DESC " \
                       "LIMIT 3;"
                 db.execute(sql, [ID])
                 articles = db.fetchall()
