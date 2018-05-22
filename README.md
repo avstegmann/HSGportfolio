@@ -35,8 +35,6 @@ http://flask.pocoo.org/docs/0.12/installation/
 
 ## Team
 
-Diana Schoeller
-
-Alexander von Stegmann
-
+Diana Schoeller,
+Alexander von Stegmann,
 Maximilian Michel
