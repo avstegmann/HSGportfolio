@@ -7,6 +7,7 @@ import re
 
 controller = Controller()
 
+# Configure application
 app = Flask(__name__)
 
 # Configure session to use filesystem (instead of signed cookies)
@@ -18,6 +19,10 @@ Session(app)
 @app.route('/')
 @login_required
 def index():
+    """ Show user's portfolio --> What stocks were bought at what price, at what exchange rate, how the stock price
+    has changed since purchase, how much cash the user has left and how valuable the total portfolio is now -->
+    differential is indicated"""
+
     controller.portfolio.update(controller.user)
     rows = controller.portfolio.rows
     length = len(rows)-1
@@ -27,7 +32,7 @@ def index():
 def login():
     """Log user in"""
 
-    # Forget any user_id
+    # Forget any userid
     session.clear()
 
     # User reached route via POST (as by submitting a form via POST)
@@ -58,6 +63,7 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
+
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
@@ -77,7 +83,7 @@ def register():
         elif request.form.get("password") != request.form.get("confirmation"):
             return apology("Password and confirmation do not match", 400)
 
-        # Personal Touch: Ensure Password has at least 5 characters, contains a number, a capital letter and a symbol
+        # Ensure Password has at least 5 characters, contains a number, a capital letter and a symbol
         while True:
             if len(request.form.get("password")) < 5:
                 return apology("Password must have at least 5 characters", 400)
@@ -106,6 +112,7 @@ def register():
 
 @app.route("/logout")
 def logout():
+    """Log user out"""
 
     # Forget any user_id
     session.clear()
@@ -117,10 +124,13 @@ def logout():
 @app.route("/quote", methods=["GET", "POST"])
 @login_required
 def quote():
+    """Get stock quote and news articles to respective company"""
+
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
         symbol = request.form.get("symbol")
         info = controller.lookup(symbol)
+        # Check if symbol exists, and if it exists in the currencies that we support
         if info is not True:
             return apology(info, 400)
         return render_template("information.html", stock=controller.stock, articles=controller.articles)
@@ -130,11 +140,13 @@ def quote():
 @app.route("/information", methods=["GET", "POST"])
 @login_required
 def information():
+    """Enables user to buy right after quoting a stock"""
+
     if request.method == "POST":
-        # ensure shares > 0
-        # ensure int
+
         shares = request.form.get("shares")
         enough_cash = controller.buy(controller.stock.symbol, shares)
+        # Run checks to ensure user has enough cash
         if enough_cash is not True:
             return apology(enough_cash, 400)
         return redirect("/")
@@ -146,11 +158,14 @@ def information():
 @login_required
 def buy():
     """Buy shares of stock"""
+
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
         symbol = request.form.get("symbol")
         shares = int(request.form.get("shares"))
         buy_check = controller.buy(symbol, shares)
+        # Checks to see whether symbol is stated correctly, whether it is available in the supported currencies
+        # & whether user has enough cash to buy the stock, otherwise render an apology
         if buy_check is not True:
             return apology(buy_check, 400)
 
@@ -163,16 +178,20 @@ def buy():
 @app.route("/sell", methods=["GET", "POST"])
 @login_required
 def sell():
+    """Sell shares of stock"""
+
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
         # Retrieve stock form
         symbol = request.form.get("symbol")
         shares = int(request.form.get("shares"))
+
+        # Check if User possess the number of shares he wants to sell
         sell_check = controller.sell(symbol, shares)
         if sell_check is not True:
             return apology(sell_check, 400)
 
-        # Display stock quote
+        # Display index page --> Portfolio
         return redirect("/")
 
     else:
@@ -182,6 +201,8 @@ def sell():
 @app.route("/history")
 @login_required
 def history():
+    """Display all transactions a user conducted, beginning with the most recent"""
+
     controller.portfolio.get_history(controller.user)
     history = controller.portfolio.history
     length = len(history)
@@ -190,6 +211,8 @@ def history():
 @app.route('/leader')
 @login_required
 def leader():
+    """Display leaderboard across all users in database, sorted according to worth of portfolio"""
+
     controller.leaderboard.get_leader()
     leaders = controller.leaderboard.rows
     return render_template("leader.html", leaders=leaders)
