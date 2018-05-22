@@ -3,7 +3,7 @@ from portfolio import Portfolio
 from article import Article
 from stock import Stock
 from user import User
-import threading
+# import threading
 import datetime
 import json
 
