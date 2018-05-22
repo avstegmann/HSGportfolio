@@ -11,10 +11,9 @@
         </p>
         <br>
         <br>
-         <!--Show all news to queried stock-->
+        <!--Show all news to queried stock-->
         <!--Adapted from: https://v4-alpha.getbootstrap.com/components/card/-->
-        <!--Table with news on stocks; Double for-loop to position them correctly: 3 columns; rows dependent on project number-->
-
+        <!--Table with news on stocks; Double for-loop to position them correctly: 3 columns in one row-->
         <h3>News</h3>
         <table class="table table">
              <tbody>
@@ -22,6 +21,7 @@
                     {% for i in range(0, 3) %}
                         <td>
                             <div class="card" style="width: 20rem;">
+                                <!-- Insert a placeholder image, in case there is no image retrieved form the API for a certain news article -->
                                 {% if articles[i][0]['image'] == "" %}
                                      <img class="card-img-top" src="https://www.wiwo.de/images/wall-street/20417210/3-formatOriginal.jpg" alt="Card image cap" height="200">
                                 {% else %}
@@ -30,17 +30,20 @@
                                 <br>
                                 <div class="card-block" align="center">
                                     <h4 class="card-title">{{ articles[i][0]['title'] }}</h4>
+                                <!--Placeholder text, in case there is no news article available for the respective stock -->
                                 {% if articles[i][0]['description'] == "" %}
                                     <p class="card-text" align="justify" style="height:60px;">Sorry, there are currently no news available on our API. But have a look at Bloomberg.</p>
                                 {% else %}
                                     <p class="card-text" align="justify" style="height:60px;">{{ articles[i][0]['description'] }}...</p>
                                 {% endif %}
                                     <br>
+                                <!-- Date will not be displayed, if there was no date of an article derived from API -->
                                 {% if articles[i][0]['date'] == "" %}
                                     <p class="card-text" style="height:60px;"></p>
                                 {% else %}
                                     <p class="card-text" style="height:60px;">{{ articles[i][0]['date'] }}.</p>
                                 {% endif %}
+                                 <!-- Redirect to relevant Bloomberg Search, in case we could not cater the query with our News API -->
                                 {% if articles[i][0]['link'] == "" %}
                                     <a class="btn btn-outline-secondary" href="https://www.bloomberg.com/search?query={{stock.name}}">Find news here</a>
                                 {% else %}
@@ -51,12 +54,13 @@
 
                             <br><br>
                         </td>
-                    <{% endfor %}>
+                    {% endfor %}
                 </tr>
             </tbody>
         </table>
         <br>
         <div class="card mb-3">
+            <!-- Enables user to purchase the queried stock directly after having received information about its price and recent news -->
             <img class="card-img-top" src="http://static1.uk.businessinsider.com/image/569961fadd08951a708b463d-1190-625/investigators-believe-money-to-finance-the-wolf-of-wall-street-came-from-a-malaysian-state-fund.jpg" alt="Card image cap">
             <div class="card-body">
                 <h4 class="card-title">Buy shares of {{stock.name}}</h4>

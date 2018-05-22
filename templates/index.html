@@ -18,6 +18,7 @@
             <th><span style="color:#088A29">Value Differential</span></th>
             <th><span style="color:#088A29">% Change</span></th>
         </tr>
+        <!-- Iterate over rows, to derive the data to fill the columns of the portfolio table respectively -->
         {% for i in range(0, length) %}
         <tr>
             <td>{{ rows[i][0]["name"] }}</td>
@@ -28,6 +29,7 @@
             <td>{{rows[i][0]["cprice"]}} {{ rows[i][0]["currency"] }}</td>
             <td>{{rows[i][0]["cvalue"]}} {{ rows[i][0]["currency"] }}</td>
             <td>{{rows[i][0]["net"]}} {{ rows[i][0]["currency"] }}</td>
+            <!-- Insert Icons and change colours (green, black, red) depending on the development of the stocks within the user's portfolio -->
             {% if rows[i][0]["net_perc"] > 0 %}
                 <td><span style="color:#088A29">{{rows[i][0]["net_perc"]}}%</span> <img src="https://image.flaticon.com/icons/svg/138/138349.svg" height=20 width=20></td>
             {% elif rows[i][0]["net_perc"] == 0  %}

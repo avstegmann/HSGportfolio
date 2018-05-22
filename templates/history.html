@@ -15,12 +15,14 @@
             <th>Expenses / <br> Earnings</th>
             <th>Exchange Rate</th>
         </tr>
-       {% for i in range(0, length) %}
+        <!-- Iterate over history to derive all relevant information about user transactions -->
+        {% for i in range(0, length) %}
         <tr>
             <td>{{ history[i][0]["date"] }}</td>
             <td>{{ history[i][0]["name"] }}</td>
             <td>{{ history[i][0]["shares"] }}</td>
             <td>{{ history[i][0]["buyingprice"] }} {{ history[i][0]["currency"] }}</td>
+            <!-- Different icons to differentiate between stock purchase and sale -->
             {% if history[i][0]["value"] >= 0 %}
                 <td>{{ history[i][0]["value"]}} {{ history[i][0]["currency"] }}   <img src="https://image.flaticon.com/icons/svg/138/138283.svg" height=20 width=20></td>
             {% else %}

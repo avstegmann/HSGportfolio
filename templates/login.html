@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-        <!--Set background picture-->
+    <!--Set background picture-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <div class="body">
         <style>
@@ -20,11 +20,9 @@
     			width: 100% !important;
                 }
         </style>
- <!--Ask for username and password; ensure one empty line at the top-->
+        <!--Ask for username and password; ensure one empty line at the top-->
         <form action="/login" method="post">
-
             <br>
-
             <div class="form-group" align="right">
                 <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" size="20" style="margin-right:25px"/>
             </div>
@@ -35,6 +33,5 @@
                 <button class="btn btn-outline-light" style="float: right;width:195px" type="submit" >Log In</button>
             </div>
         </form>
-
     </div>
 {% endblock %}
