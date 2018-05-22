@@ -27,8 +27,7 @@
                                 <img class="card-img-top" src="{{ articles[i][0]['image'] }}" alt="Card image cap" height="200">
                             {% endif %}
                             <br>
-                        </div>
-                        <div class="card-block" align="center">
+                            <div class="card-block" align="center">
                                 <h4 class="card-title">{{ articles[i][0]['title'] }}</h4>
                             {% if articles[i][0]['description'] == "" %}
                                 <p class="card-text" align="justify" style="height:60px;">Sorry, there are currently no news available on our API. But have a look at Bloomberg.</p>
@@ -46,6 +45,7 @@
                             {% else %}
                                 <a class="btn btn-outline-secondary" href="{{ articles[i][0]['link'] }}">View article</a>
                             {% endif %}
+                        </div>
                         </div>
                         <br>
                         <br>

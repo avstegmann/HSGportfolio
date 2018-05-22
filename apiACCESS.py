@@ -13,6 +13,7 @@ class Api:
         with requests.session():
             url = 'https://query1.finance.yahoo.com/v7/finance/quote?symbols={}'.format(symbols)
             info = requests.get(url)
+        print(info)
         if not info:
             return False
         else:
