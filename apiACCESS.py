@@ -13,11 +13,12 @@ class Api:
         with requests.session():
             url = 'https://query1.finance.yahoo.com/v7/finance/quote?symbols={}'.format(symbols)
             info = requests.get(url)
+        print(info)
         if not info:
             return False
         else:
             info = info.json()
-            print(json.dumps(info, indent=2))
+            # print(json.dumps(info, indent=2))
             output = {}
             for i in range(0, len(info['quoteResponse']['result'])):
                 key = info['quoteResponse']['result'][i]['symbol']
