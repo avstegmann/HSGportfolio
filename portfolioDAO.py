@@ -82,7 +82,7 @@ class PortfolioDAO:
             pass
         avg = (buyingprice + stock.price)/2
         expenses = float(shares) * float(stock.price)
-        expenses_new = (expenses + expenses2) / 2
+        expenses_new = (expenses + expenses2)
         shares_new = shares + shares2
         try:
             sql = "UPDATE portfolio SET shares=%s, buyingprice=%s, expenses=%s, " \

@@ -6,7 +6,7 @@ import time
 
 controller = Controller()
 
-username = input("Username: ")
-password = input("Password: ")
-controller.login(username, password)
+#username = input("Username: ")
+#password = input("Password: ")
+controller.run()
 
